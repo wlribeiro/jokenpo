@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-paper-scissors</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="result"></div>
+    </div>
+    <div class="footer">
+        <a href="https://github.com/wlribeiro/jokenpo" target="_blank">
+            <img src="octocat.png" alt="">
+        </a>
+    </div>
+
+    <script>
+        const options = {
+            1: "ROCK",
+            2: "PAPER",
+            3: "SCISSORS"
+        };
+        const results = {
+            lost: "YOU LOSE 😔",
+            win: "YOU WIN 🏆",
+            draw: "YOU DRAW 🤝"
+        };
+
+        let result = ""
+
+        const url = window.location.href;
+        const choice = new URLSearchParams(new URL(url).search);
+        const clientChoice = parseInt(Object.keys(options).find(key => options[key] === choice.get("choice")))
+        const personalChoice = parseInt(Math.random() * (4 - 1) + 1);
+        console.log("CLIENT:", clientChoice, "ME:", personalChoice)
+
+        if (clientChoice == personalChoice) {
+            result = results['draw'];
+        } else {
+            switch (clientChoice) {
+                case 1:
+                    result = personalChoice == 2 ? results["lost"] : results["win"]
+                    break;
+                case 2:
+                    result = personalChoice == 3 ? results["lost"] : results["win"]
+                    break; 
+                case 3:
+                    result = personalChoice == 1 ? results["lost"] : results["win"]
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        document.getElementsByClassName("result")[0].innerHTML = `<h1>${result}</h1>`
+    </script>
+</body>
+
+</html>
